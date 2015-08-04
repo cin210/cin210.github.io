@@ -1,5 +1,5 @@
 body {
-  background-color: #FAFAFA;
+  background-color: #EEEEEE;
   padding: 1em;
   font-family: 'Verdana, Geneva', sans-serif;
 }
@@ -87,6 +87,12 @@ footer {
   }
   footer{
     font-size: 2em;
+  }
+  .center {
+    top: 0;
+    left: 0;
+    margin-right: 50%;
+    transform: translate(10%, 0%)
   }
 }
 
