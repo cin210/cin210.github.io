@@ -1,78 +1,105 @@
-
 body {
-	background-color: #FAFAFA;
-	padding: 1em;
-	font-family: 'Verdana, Geneva', sans-serif;
+  background-color: #FAFAFA;
+  padding: 1em;
+  font-family: 'Verdana, Geneva', sans-serif;
 }
 
-ul{
-	list-style: none;
-	padding-left: 0px;
+ul {
+  list-style: none;
+  padding-left: 0px;
 }
 
-li{
-    	width: 400px;
-    	line-height: 3em;
-	padding: 0px  0px 0px 0px;
+li {
+  width: 400px;
+  line-height: 3em;
+  padding: 0px  0px 0px 0px;
 }
 
-li:hover{
-	background-image: url(cursor.png);
-	background-repeat: no-repeat;
-	background-position:  0px center;
+li:hover {
+  background-image: url(cursor.png);
+  background-repeat: no-repeat;
+  background-position:  0px center;
 }
 
 a {
-	text-decoration: none;
-	display: block;
-	cursor:none;
-	font-size: 1.5em;
-	padding: 5px 10px 0px 50px;
-    	width: inherit;
-	height:100%;
-  	line-height: 2em;
-  	color: #f145c0;
+  text-decoration: none;
+  display: block;
+  cursor:none;
+  font-size: 1.5em;
+  padding: 5px 10px 0px 50px;
+  width: inherit;
+  height:100%;
+    line-height: 2em;
+    color: #f145c0;
 }
 
-a:visited{
-  	color: #800813;
+a:visited {
+    color: #800813;
 }
 
-a:hover{
-	text-decoration: underline;
+a:hover {
+  text-decoration: underline;
 }
 
-footer{
-	position: absolute;
-	padding: 10px;
-	bottom: 0%;
-	color: Grey;
+footer {
+  position: absolute;
+  padding: 10px;
+  bottom: 0%;
+  color: Grey;
 }
 
 .curses{
-	display: block;
-	cursor:none;
+  display: block;
+  cursor:none;
 }
 
 .center {
-	display:block;
-	position: absolute;
-    	top: 50%;
-    	left: 50%;
-    	margin-right: -50%;
-    	transform: translate(-50%, -50%)
+  display:block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
 }
 
 
 @media(max-width: 480px) {
-	body{
-		padding-top:5%;
-	}
-	h1 {
-		padding-left:10%;
-		width:100px;
-	}
-	a {
-		font-size: 3em;
-	}
+  body{
+    padding-top:5%;
+  }
+  h1 {
+    padding-left:10%;
+    width:100px;
+  }
+  a {
+    font-size: 3em;
+  }
+}
+
+@media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+  h1 {
+    font-size: 5em;
+    width: 100px;
+  }
+  a {
+    font-size: 5em;
+    padding: 0px;
+  }
+  footer{
+    font-size: 2em;
+  }
+}
+
+@media only screen and (max-device-width: 414px)  and (-webkit-device-pixel-ratio: 3){
+  h1 {
+    font-size: 5em;
+    width: 100px;
+  }
+  a {
+    font-size: 5em;
+    padding: 0px;
+  }
+  footer{
+    font-size: 2em;
+  }
 }
