@@ -1,7 +1,7 @@
 
 body {
 	background-color: #FAFAFA;
-	padding: 1em; 
+	padding: 1em;
 	font-family: 'Verdana, Geneva', sans-serif;
 }
 
@@ -17,7 +17,7 @@ li{
 }
 
 li:hover{
-	background-image: url(http://img1.wikia.nocookie.net/__cb20120313221639/finalfantasy/images/b/b5/FFXIII_Pointer_White_BG.PNG);
+	background-image: url(cursor.png);
 	background-repeat: no-repeat;
 	background-position:  0px center;
 }
@@ -25,16 +25,16 @@ li:hover{
 a {
 	text-decoration: none;
 	display: block;
-	cursor:none; 
+	cursor:none;
 	font-size: 1.5em;
 	padding: 5px 10px 0px 50px;
     	width: inherit;
 	height:100%;
-  	line-height: 2em; 
+  	line-height: 2em;
   	color: #f145c0;
 }
 
-a:visited{ 
+a:visited{
   	color: #800813;
 }
 
@@ -46,7 +46,7 @@ footer{
 	position: absolute;
 	padding: 10px;
 	bottom: 0%;
-	color: Grey; 
+	color: Grey;
 }
 
 .curses{
@@ -60,7 +60,7 @@ footer{
     	top: 50%;
     	left: 50%;
     	margin-right: -50%;
-    	transform: translate(-50%, -50%) 
+    	transform: translate(-50%, -50%)
 }
 
 
