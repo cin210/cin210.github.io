@@ -53,6 +53,10 @@ footer {
   cursor:none;
 }
 
+.hide {
+  display: none;
+}
+
 .center {
   display:block;
   position: absolute;
