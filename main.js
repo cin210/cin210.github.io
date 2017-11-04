@@ -16,23 +16,44 @@
   canvas.ontouchend     = handleTouchEnd;
   canvas.ontouchcancel  = handleLeave;
   canvas.ontouchmove    = handleTouchMove;
-
-  // window.ondevicemotion = reset;
-
   document.body.ontouchstart = document.body.ontouchend = document.body.ontouchmove = holdStill;
 
   paint.onclick = togglePaint;
 
-  // function reset() {
-  //   alert('reset')
-  //   clickX = new Array()
-  //   clickY = new Array()
-  //   clickD = new Array()
-  //   window.localStorage.setItem("x",clickX)
-  //   window.localStorage.setItem("y",clickY)
-  //   window.localStorage.setItem("d",clickD)
-  //   redraw()
-  // }
+  function resetCanvas() {
+    clickX = new Array()
+    clickY = new Array()
+    clickD = new Array()
+    window.localStorage.setItem("x",clickX)
+    window.localStorage.setItem("y",clickY)
+    window.localStorage.setItem("d",clickD)
+    redraw()
+  }
+
+  if (typeof window.DeviceMotionEvent != 'undefined') {
+      //  lower number is more sensitive
+      var sensitivity = 20;
+      var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+      window.addEventListener('devicemotion', function (e) {
+          x1 = e.accelerationIncludingGravity.x;
+          y1 = e.accelerationIncludingGravity.y;
+          z1 = e.accelerationIncludingGravity.z;
+      }, false);
+
+      // Periodically check the position and fire
+      // if the change is greater than the sensitivity
+      setInterval(function () {
+          var change = Math.abs(x1-x2+y1-y2+z1-z2);
+
+          if (change > sensitivity) {
+              resetCanvas() ;
+          }
+
+          x2 = x1;
+          y2 = y1;
+          z2 = z1;
+      }, 150);
+  }
 
   function holdStill(e){
      if (e.target == canvas) {
@@ -107,7 +128,7 @@
     var mouseY = e.pageY - this.offsetTop;
 
     paint = true;
-    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+    addClick(mouseX, mouseY);
     redraw();
   };
 
@@ -116,9 +137,11 @@
   };
 
   function handleMove(e){
-    console.log("move")
+    console.log("move", e)
+    var mouseX = e.pageX - this.offsetLeft;
+    var mouseY = e.pageY - this.offsetTop;
     if(paint){
-      addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+      addClick(mouseX, mouseY, true);
       redraw();
     }
   };
