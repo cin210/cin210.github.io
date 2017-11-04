@@ -30,31 +30,6 @@
     redraw()
   }
 
-  if (typeof window.DeviceMotionEvent != 'undefined') {
-      //  lower number is more sensitive
-      var sensitivity = 20;
-      var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
-      window.addEventListener('devicemotion', function (e) {
-          x1 = e.accelerationIncludingGravity.x;
-          y1 = e.accelerationIncludingGravity.y;
-          z1 = e.accelerationIncludingGravity.z;
-      }, false);
-
-      // Periodically check the position and fire
-      // if the change is greater than the sensitivity
-      setInterval(function () {
-          var change = Math.abs(x1-x2+y1-y2+z1-z2);
-
-          if (change > sensitivity) {
-              resetCanvas() ;
-          }
-
-          x2 = x1;
-          y2 = y1;
-          z2 = z1;
-      }, 150);
-  }
-
   function holdStill(e){
      if (e.target == canvas) {
       e.preventDefault();
@@ -62,7 +37,7 @@
   }
 
   function handleTouchStart(e){
-    console.log('touchstart', mousePos)
+    e.preventDefault()
     var mousePos = getTouchPos(canvas, e);
     var touch = e.touches[0];
     var mouseEvent = new MouseEvent("mousedown", {
@@ -74,12 +49,13 @@
   }
 
   function handleTouchEnd(e){
-    console.log('touchend', mousePos)
+    e.preventDefault()
     var mouseEvent = new MouseEvent("mouseup", {});
     canvas.dispatchEvent(mouseEvent);
   }
 
   function handleTouchMove(e){
+    e.preventDefault()
     var touch = e.touches[0];
     console.log('handleTouchMove',touch.clientX,touch.clientY)
     var mouseEvent = new MouseEvent("mousemove", {
@@ -198,4 +174,29 @@
   window.addEventListener('resize', resizeCanvas, false);
   reloadMasterpiece()
   resizeCanvas()
+
+  if (typeof window.DeviceMotionEvent != 'undefined') {
+      //  lower number is more sensitive
+      var sensitivity = 20;
+      var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+      window.ondevicemotion = function (e) {
+          x1 = e.accelerationIncludingGravity.x;
+          y1 = e.accelerationIncludingGravity.y;
+          z1 = e.accelerationIncludingGravity.z;
+      }
+
+      // Periodically check the position and fire
+      // if the change is greater than the sensitivity
+      setInterval(function () {
+          var change = Math.abs(x1-x2+y1-y2+z1-z2);
+
+          if (change > sensitivity) {
+              resetCanvas();
+          }
+
+          x2 = x1;
+          y2 = y1;
+          z2 = z1;
+      }, 150);
+  }
 })();
