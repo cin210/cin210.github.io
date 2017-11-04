@@ -1,3 +1,7 @@
+html {
+  cursor:none;
+}
+
 body {
   background-color: #fefefe;
   padding: 1em;
