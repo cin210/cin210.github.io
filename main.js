@@ -7,16 +7,16 @@
   var clickY  = new Array();
   var clickD  = new Array();
 
-  canvas.addEventListener('mousedown', handleDown);
-  canvas.addEventListener('mouseup', handleUp);
-  canvas.addEventListener('mouseleave', handleLeave);
-  canvas.addEventListener('mousemove', handleMove);
+  canvas.addEventListener('mousedown', handleDown, false);
+  canvas.addEventListener('mouseup', handleUp, false);
+  canvas.addEventListener('mouseleave', handleLeave), false;
+  canvas.addEventListener('mousemove', handleMove, false);
 
 
-  canvas.addEventListener('touchstart', handleTouchStart);
-  canvas.addEventListener('touchend', handleTouchEnd);
-  canvas.addEventListener('touchcancel', handleLeave);
-  canvas.addEventListener('touchmove', handleTouchMove);
+  canvas.addEventListener('touchstart', handleTouchStart, false);
+  canvas.addEventListener('touchend', handleTouchEnd, false);
+  canvas.addEventListener('touchcancel', handleLeave, false);
+  canvas.addEventListener('touchmove', handleTouchMove, false);
 
   document.body.ontouchstart = document.body.ontouchend = document.body.ontouchmove = holdStill;
 
