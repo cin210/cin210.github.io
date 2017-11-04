@@ -12,13 +12,61 @@
   canvas.onmouseleave = handleLeave;
   canvas.onmousemove  = handleMove;
 
-  canvas.touchstart   = handleDown;
-  canvas.touchend     = handleUp;
-  canvas.touchcancel  = handleLeave;
-  canvas.touchmove  = handleMove;
+  canvas.ontouchstart   = handleTouchStart;
+  canvas.ontouchend     = handleTouchEnd;
+  canvas.ontouchcancel  = handleLeave;
+  canvas.ontouchmove    = handleTouchMove;
 
+  // window.ondevicemotion = reset;
+
+  document.body.ontouchstart = document.body.ontouchend = document.body.ontouchmove = holdStill;
 
   paint.onclick = togglePaint;
+
+  // function reset() {
+  //   alert('reset')
+  //   clickX = new Array()
+  //   clickY = new Array()
+  //   clickD = new Array()
+  //   window.localStorage.setItem("x",clickX)
+  //   window.localStorage.setItem("y",clickY)
+  //   window.localStorage.setItem("d",clickD)
+  //   redraw()
+  // }
+
+  function holdStill(e){
+     if (e.target == canvas) {
+      e.preventDefault();
+    }
+  }
+
+  function handleTouchStart(e){
+    console.log('touchstart', mousePos)
+    var mousePos = getTouchPos(canvas, e);
+    var touch = e.touches[0];
+    var mouseEvent = new MouseEvent("mousedown", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    console.log('touchstart done', mouseEvent)
+    canvas.dispatchEvent(mouseEvent);
+  }
+
+  function handleTouchEnd(e){
+    console.log('touchend', mousePos)
+    var mouseEvent = new MouseEvent("mouseup", {});
+    canvas.dispatchEvent(mouseEvent);
+  }
+
+  function handleTouchMove(e){
+    var touch = e.touches[0];
+    console.log('handleTouchMove',touch.clientX,touch.clientY)
+    var mouseEvent = new MouseEvent("mousemove", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+  }
 
   function parset(v){
     try {
@@ -54,6 +102,7 @@
   }
 
   function handleDown(e){
+    console.log("handledown")
     var mouseX = e.pageX - this.offsetLeft;
     var mouseY = e.pageY - this.offsetTop;
 
@@ -67,6 +116,7 @@
   };
 
   function handleMove(e){
+    console.log("move")
     if(paint){
       addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
       redraw();
@@ -79,12 +129,21 @@
 
   function addClick(x, y, d)
   {
+    console.log("addclick")
     clickX.push(x)
     clickY.push(y)
     clickD.push(d)
     window.localStorage.setItem("x", JSON.stringify(clickX))
     window.localStorage.setItem("y", JSON.stringify(clickY))
     window.localStorage.setItem("d", JSON.stringify(clickD))
+  }
+
+  function getTouchPos(touchEvent) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: touchEvent.touches[0].clientX - rect.left,
+      y: touchEvent.touches[0].clientY - rect.top
+    };
   }
 
   function redraw(){
