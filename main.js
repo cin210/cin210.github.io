@@ -12,6 +12,12 @@
   canvas.onmouseleave = handleLeave;
   canvas.onmousemove  = handleMove;
 
+  canvas.touchstart   = handleDown;
+  canvas.touchend     = handleUp;
+  canvas.touchcancel  = handleLeave;
+  canvas.touchmove  = handleMove;
+
+
   paint.onclick = togglePaint;
 
   function parset(v){
