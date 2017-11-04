@@ -1,11 +1,23 @@
 html {
-  cursor:none;
+  cursor: none;
 }
 
 body {
   background-color: #fefefe;
   padding: 1em;
   font-family: 'Verdana, Geneva', sans-serif;
+}
+
+#wrap, #canvas {
+  position: absolute;
+  height: 100%;
+  width:  100%;
+  margin: -25px;
+  padding: 0px;
+}
+#canvas {
+  cursor: crosshair;
+  z-index: -1;
 }
 
 ul {
