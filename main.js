@@ -7,15 +7,17 @@
   var clickY  = new Array();
   var clickD  = new Array();
 
-  canvas.onmousedown  = handleDown;
-  canvas.onmouseup    = handleUp;
-  canvas.onmouseleave = handleLeave;
-  canvas.onmousemove  = handleMove;
+  canvas.addEventListener('mousedown', handleDown);
+  canvas.addEventListener('mouseup', handleUp);
+  canvas.addEventListener('mouseleave', handleLeave);
+  canvas.addEventListener('mousemove', handleMove);
 
-  canvas.ontouchstart   = handleTouchStart;
-  canvas.ontouchend     = handleTouchEnd;
-  canvas.ontouchcancel  = handleLeave;
-  canvas.ontouchmove    = handleTouchMove;
+
+  canvas.addEventListener('touchstart', handleTouchStart);
+  canvas.addEventListener('touchend', handleTouchEnd);
+  canvas.addEventListener('touchcancel', handleLeave);
+  canvas.addEventListener('touchmove', handleTouchMove);
+
   document.body.ontouchstart = document.body.ontouchend = document.body.ontouchmove = holdStill;
 
   paint.onclick = togglePaint;
@@ -38,13 +40,12 @@
 
   function handleTouchStart(e){
     e.preventDefault()
-    var mousePos = getTouchPos(canvas, e);
+    var mousePos = getTouchPos(e);
     var touch = e.touches[0];
     var mouseEvent = new MouseEvent("mousedown", {
       clientX: touch.clientX,
       clientY: touch.clientY
     });
-    console.log('touchstart done', mouseEvent)
     canvas.dispatchEvent(mouseEvent);
   }
 
@@ -57,7 +58,6 @@
   function handleTouchMove(e){
     e.preventDefault()
     var touch = e.touches[0];
-    console.log('handleTouchMove',touch.clientX,touch.clientY)
     var mouseEvent = new MouseEvent("mousemove", {
       clientX: touch.clientX,
       clientY: touch.clientY
@@ -99,7 +99,6 @@
   }
 
   function handleDown(e){
-    console.log("handledown")
     var mouseX = e.pageX - this.offsetLeft;
     var mouseY = e.pageY - this.offsetTop;
 
@@ -113,7 +112,6 @@
   };
 
   function handleMove(e){
-    console.log("move", e)
     var mouseX = e.pageX - this.offsetLeft;
     var mouseY = e.pageY - this.offsetTop;
     if(paint){
@@ -128,7 +126,6 @@
 
   function addClick(x, y, d)
   {
-    console.log("addclick")
     clickX.push(x)
     clickY.push(y)
     clickD.push(d)
