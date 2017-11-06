@@ -1,7 +1,6 @@
 (function(){
   var canvas  = document.getElementById("canvas");
   var paint   = document.getElementById("paint");
-  var pallet  = document.getElementById("pallet");
   var context = canvas.getContext("2d");
   var clickX  = new Array();
   var clickY  = new Array();
@@ -11,7 +10,6 @@
   canvas.addEventListener('mouseup', handleUp, false);
   canvas.addEventListener('mouseleave', handleLeave), false;
   canvas.addEventListener('mousemove', handleMove, false);
-
 
   canvas.addEventListener('touchstart', handleTouchStart, false);
   canvas.addEventListener('touchend', handleTouchEnd, false);
