@@ -97,7 +97,28 @@ footer {
 					'IMG_5160', 'IMG_6589', 'IMG_8248', 'IMG_9334', 'IMG_9584',
 					'IMG_1541 2', 'IMG_1541', 'IMG_1879', 'IMG_3545', 'IMG_3648'
 				];
-				var slug = slugs[Math.floor(Math.random() * slugs.length)];
+
+				// Read recent history from sessionStorage, fail silently
+				var HISTORY_SIZE = 3;
+				var recent = [];
+				try {
+					var stored = sessionStorage.getItem('_vbg_recent');
+					var parsed = JSON.parse(stored);
+					if (Array.isArray(parsed)) recent = parsed;
+				} catch(e) {}
+
+				// Pick from slugs not seen recently; fall back to full list if exhausted
+				var pool = slugs.filter(function(s) { return recent.indexOf(s) === -1; });
+				if (!pool.length) pool = slugs;
+				var slug = pool[Math.floor(Math.random() * pool.length)];
+
+				// Persist updated history, fail silently
+				try {
+					recent.push(slug);
+					if (recent.length > HISTORY_SIZE) recent = recent.slice(-HISTORY_SIZE);
+					sessionStorage.setItem('_vbg_recent', JSON.stringify(recent));
+				} catch(e) {}
+
 				var suffix = window.innerWidth < 768 ? '-mobile' : '-desktop';
 				var src = 'assets/videos/' + slug + suffix + '.mp4';
 				var link = document.createElement('link');
@@ -106,9 +127,8 @@ footer {
 				link.href = src;
 				link.type = 'video/mp4';
 				document.head.appendChild(link);
-				var poster = 'assets/videos/' + slug + suffix + '-poster.jpg';
 				window._videoBgSrc = src;
-				window._videoBgPoster = poster;
+				window._videoBgPoster = 'assets/videos/' + slug + suffix + '-poster.jpg';
 			})();
 		</script>
 	</head>
