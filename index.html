@@ -12,6 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="main.css"/>
 	</head>
 	<body class="curses">
+		<video id="video-bg" autoplay muted loop playsinline></video>
+		<div id="video-overlay"></div>
 		<div id="wrap">
 			<img src="cursor.png" class="hide" style="display:none;"/>
 			<div class="center">
@@ -27,5 +29,20 @@
 		<footer class="center">
 			  &#xA9; 2026 Christopher Neale.
 		</footer>
+		<script>
+			const videos = [
+				'assets/videos/IMG_5160-clean.MOV',
+				'assets/videos/IMG_6589-clean.mov',
+				'assets/videos/IMG_8248-clean.MOV',
+				'assets/videos/IMG_9334-clean.MOV',
+				'assets/videos/IMG_9584-clean.MOV',
+				'assets/videos/IMG_1541 2-clean.MOV',
+				'assets/videos/IMG_1541-clean.MOV',
+				'assets/videos/IMG_1879-clean.MOV',
+				'assets/videos/IMG_3545-clean.MOV',
+				'assets/videos/IMG_3648-clean.MOV',
+			];
+			document.getElementById('video-bg').src = videos[Math.floor(Math.random() * videos.length)];
+		</script>
 	</body>
 </html>
