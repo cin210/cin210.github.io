@@ -59,6 +59,26 @@ body {
   transition: background 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 body:hover #video-overlay { background: rgba(0, 0, 0, 0.52); }
+body.bio-open #video-overlay { background: rgba(0, 0, 0, 0.72); }
+#bio {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+}
+#bio.open {
+  max-height: 400px;
+  opacity: 1;
+}
+#bio p {
+  font-family: var(--font-body);
+  font-size: 01.1375rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: calc(var(--spacing-unit) * 3);
+}
+#bio p:last-child { margin-bottom: 0; }
+.bio-toggle.active { border-bottom-color: var(--color-text); }
 h1 {
   font-family: var(--font-display);
   font-size: 2.75rem;
@@ -102,7 +122,7 @@ footer {
 				'IMG_9584'
 			];
 
-			var HISTORY_SIZE = 3;
+			var HISTORY_SIZE = slugs.length/2;
 
 			function wander() {
 				// Read recent history from sessionStorage, fail silently
@@ -147,6 +167,15 @@ footer {
 			}
 
 			wander();
+
+			function toggleBio() {
+				var bio = document.getElementById('bio');
+				var toggle = document.querySelector('.bio-toggle');
+				var isOpen = bio.classList.contains('open');
+				bio.classList.toggle('open', !isOpen);
+				toggle.classList.toggle('active', !isOpen);
+				document.body.classList.toggle('bio-open', !isOpen);
+			}
 		</script>
 	</head>
 	<body class="curses">
@@ -156,14 +185,20 @@ footer {
 			<img src="cursor.png" class="hide" style="display:none;"/>
 			<div class="center">
 				<h1>Christopher Neale</h1>
-				<h3>Automator</h3>
+				<h3>Automator &amp; Traveler</h3>
 				<ul>
-					<li><a target="_blank" href="https://github.com/cin210">Code</a></li>
-					<li><a target="_blank" href="https://instagram.com/cnpix66">Pics</a></li>
-					<li><a target="_blank" href="https://linkedin.com/in/chrisneale">Connect</a></li>
-					<li><a target="_blank" href="mailto:get@cneale.com">Contact</a></li>
+					<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/cin210">Code</a></li>
+					<li><a target="_blank" rel="noopener noreferrer" href="https://instagram.com/cnpix66">Pics</a></li>
+					<li><a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/chrisneale">Connect</a></li>
+					<li><a target="_blank" rel="noopener noreferrer" href="mailto:get@cneale.com">Contact</a></li>
 					<li><a href="#" onclick="wander(); return false;">Wander</a></li>
+					<li><a href="#" class="bio-toggle" onclick="toggleBio(); return false;">Learn More</a></li>
 				</ul>
+				<div id="bio">
+					<p>I build mission-critical communications systems and scale start-ups from zero to profitability.</p> 
+					<p>Previously, co-founder &amp; CTO of <a target="_blank" rel="noopener noreferrer" href="https://www.avochato.com/">Avochato</a>, a business messaging platform.</p> 
+					<p>Currently helping teams integrate AI agents into their tech stack.<br><a target="_blank" rel="noopener noreferrer" href="mailto:get@cneale.com">Reach out</a> for consulting, start-up advisory, and fractional CTO positions.</p> 
+				</div>
 			</div>
 		</div>
 		<footer class="center">
