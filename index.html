@@ -4,12 +4,91 @@
 		<title>Home</title>
 		<meta name="robots" content="index, follow"/>
 		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="dns-prefetch" href="http://cin210.github.io/"/>
 		<link href="favicon-monogram.ico" rel="icon" type="image/x-icon" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Crimson+Pro:wght@300;400;500&family=Inter:wght@300;400;500&display=swap">
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Crimson+Pro:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="main.css"/>
+		<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.55);
+  --font-display: 'Canela', 'Freight Display', 'Tiempos Headline', 'Playfair Display', Georgia, serif;
+  --font-body: 'Signifier', 'Freight Text', 'Lyon Text', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --spacing-unit: 8px;
+  --max-width: 580px;
+}
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-text);
+  background: #000;
+  padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 4);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+#video-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  animation: slow-zoom 30s ease-in-out infinite alternate;
+}
+@keyframes slow-zoom {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+#video-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body:hover #video-overlay { background: rgba(0, 0, 0, 0.3); }
+h1 {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+ul { list-style: none; margin: calc(var(--spacing-unit) * 6) 0; padding: 0; }
+li {
+  margin-bottom: calc(var(--spacing-unit) * 3);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+}
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 1px;
+}
+a:hover { border-bottom-color: var(--color-text); }
+footer {
+  margin-top: calc(var(--spacing-unit) * 20);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+.center { max-width: var(--max-width); margin: 0 auto; }
+		</style>
 	</head>
 	<body class="curses">
 		<video id="video-bg" autoplay muted loop playsinline></video>
@@ -30,19 +109,13 @@
 			  &#xA9; 2026 Christopher Neale.
 		</footer>
 		<script>
-			const videos = [
-				'assets/videos/IMG_5160-clean.MOV',
-				'assets/videos/IMG_6589-clean.mov',
-				'assets/videos/IMG_8248-clean.MOV',
-				'assets/videos/IMG_9334-clean.MOV',
-				'assets/videos/IMG_9584-clean.MOV',
-				'assets/videos/IMG_1541 2-clean.MOV',
-				'assets/videos/IMG_1541-clean.MOV',
-				'assets/videos/IMG_1879-clean.MOV',
-				'assets/videos/IMG_3545-clean.MOV',
-				'assets/videos/IMG_3648-clean.MOV',
+			const slugs = [
+				'IMG_5160', 'IMG_6589', 'IMG_8248', 'IMG_9334', 'IMG_9584',
+				'IMG_1541 2', 'IMG_1541', 'IMG_1879', 'IMG_3545', 'IMG_3648'
 			];
-			document.getElementById('video-bg').src = videos[Math.floor(Math.random() * videos.length)];
+			const slug = slugs[Math.floor(Math.random() * slugs.length)];
+			const suffix = window.innerWidth < 768 ? '-mobile' : '-desktop';
+			document.getElementById('video-bg').src = 'assets/videos/' + slug + suffix + '.mp4';
 		</script>
 	</body>
 </html>
