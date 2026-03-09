@@ -5,11 +5,8 @@
 }
 
 :root {
-  --color-bg: #fdfdf9;
-  --color-text: #18181b;
-  --color-text-muted: #71717a;
-  --color-accent: #18181b;
-  --color-border: #e4e4e7;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.55);
 
   --font-display: 'Canela', 'Freight Display', 'Tiempos Headline', 'Playfair Display', Georgia, serif;
   --font-body: 'Signifier', 'Freight Text', 'Lyon Text', Georgia, serif;
@@ -24,14 +21,46 @@ body {
   font-size: 17px;
   line-height: 1.75;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: #000;
   padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 4);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   position: relative;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
+#video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  animation: slow-zoom 30s ease-in-out infinite alternate;
+}
+
+@keyframes slow-zoom {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+#video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body:hover #video-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
 
 h1 {
   font-family: var(--font-display);
@@ -40,32 +69,6 @@ h1 {
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: calc(var(--spacing-unit) * 2);
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(ellipse at 25% 35%, rgba(245, 245, 240, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 70%, rgba(250, 248, 245, 0.12) 0%, transparent 55%);
-  animation: subtle-drift 25s ease-in-out infinite alternate;
-  z-index: -2;
-  pointer-events: none;
-}
-
-@keyframes subtle-drift {
-  0%, 100% {
-    transform: translate(0, 0);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate(1%, -1%);
-    opacity: 0.6;
-  }
 }
 
 ul {
@@ -97,7 +100,7 @@ a:hover {
 footer {
   margin-top: calc(var(--spacing-unit) * 20);
   font-family: var(--font-sans);
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.8125rem;
   color: var(--color-text-muted);
   letter-spacing: 0.02em;
 }
