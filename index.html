@@ -8,6 +8,7 @@
 		<link rel="dns-prefetch" href="http://cin210.github.io/"/>
 		<link href="favicon-monogram.ico" rel="icon" type="image/x-icon" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Crimson+Pro:wght@300;400;500&family=Inter:wght@300;400;500&display=swap">
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Crimson+Pro:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 		<style>
@@ -40,6 +41,7 @@ body {
   width: 100%; height: 100%;
   object-fit: cover;
   z-index: -2;
+  will-change: transform;
   animation: slow-zoom 30s ease-in-out infinite alternate;
 }
 @keyframes slow-zoom {
@@ -89,6 +91,26 @@ footer {
 }
 .center { max-width: var(--max-width); margin: 0 auto; }
 		</style>
+		<script>
+			(function() {
+				var slugs = [
+					'IMG_5160', 'IMG_6589', 'IMG_8248', 'IMG_9334', 'IMG_9584',
+					'IMG_1541 2', 'IMG_1541', 'IMG_1879', 'IMG_3545', 'IMG_3648'
+				];
+				var slug = slugs[Math.floor(Math.random() * slugs.length)];
+				var suffix = window.innerWidth < 768 ? '-mobile' : '-desktop';
+				var src = 'assets/videos/' + slug + suffix + '.mp4';
+				var link = document.createElement('link');
+				link.rel = 'preload';
+				link.as = 'video';
+				link.href = src;
+				link.type = 'video/mp4';
+				document.head.appendChild(link);
+				var poster = 'assets/videos/' + slug + suffix + '-poster.jpg';
+				window._videoBgSrc = src;
+				window._videoBgPoster = poster;
+			})();
+		</script>
 	</head>
 	<body class="curses">
 		<video id="video-bg" autoplay muted loop playsinline></video>
@@ -109,13 +131,9 @@ footer {
 			  &#xA9; 2026 Christopher Neale.
 		</footer>
 		<script>
-			const slugs = [
-				'IMG_5160', 'IMG_6589', 'IMG_8248', 'IMG_9334', 'IMG_9584',
-				'IMG_1541 2', 'IMG_1541', 'IMG_1879', 'IMG_3545', 'IMG_3648'
-			];
-			const slug = slugs[Math.floor(Math.random() * slugs.length)];
-			const suffix = window.innerWidth < 768 ? '-mobile' : '-desktop';
-			document.getElementById('video-bg').src = 'assets/videos/' + slug + suffix + '.mp4';
+			var v = document.getElementById('video-bg');
+			v.poster = window._videoBgPoster;
+			v.src = window._videoBgSrc;
 		</script>
 	</body>
 </html>
